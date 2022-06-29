@@ -1,0 +1,28 @@
+style1.directive.ts
+
+
+
+import {Directive, ElementRef, HostListener, Renderer2} from '@angular/core';
+
+@Directive({
+  selector: '[appStyle1]'
+})
+export class Style1Directive {
+
+  constructor(private el:ElementRef,
+              private renderer:Renderer2) {  
+    this.renderer.setStyle(this.el.nativeElement, 'color', 'blue');
+  }
+
+  @HostListener('click',["$event.target"]) onclick(event:Event){  //Просматриваем сам елемент при клике будет показан в консоле имя метода можем сами задавать 
+    console.log(event);
+  }
+
+  @HostListener('mouseenter') onEnter(){
+    this.renderer.setStyle(this.el.nativeElement, 'color', 'red');  //Добавляем при наведений изменяем цвет на красный 
+  }
+
+  @HostListener('mouseleave') onLeave(){
+    this.renderer.setStyle(this.el.nativeElement, 'color', null);  //При отведений изменяем цвет на налл чтобы убрать цвет 
+  }
+}
