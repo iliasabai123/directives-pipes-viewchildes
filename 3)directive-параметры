@@ -1,0 +1,37 @@
+styule1.directive.ts
+
+
+
+import {Directive, ElementRef, HostListener, Input, Renderer2} from '@angular/core';
+
+@Directive({
+  selector: '[appStyle1]'
+})
+export class Style1Directive {
+
+  @Input('appStyle1') color:string = 'blue'; //Чтобы могли приниать параметры мы создаем переменную которая будет прописано вместо стилей в директиву appStyle1
+  @Input() fontWeight:string = 'normal';  //тут не обьязательно указывать директиву в теле инпута 
+
+  constructor(private el:ElementRef,
+              private renderer:Renderer2) {
+  }
+
+  @HostListener('mouseenter') onEnter(){
+    this.renderer.setStyle(this.el.nativeElement, 'color', this.color);  //Заменяем статичные стили на переменную чтобы можно было задавать параметры 
+    this.renderer.setStyle(this.el.nativeElement, 'fontWeight', this.fontWeight);
+  }
+
+  @HostListener('mouseleave') onLeave(){
+    this.renderer.setStyle(this.el.nativeElement, 'color', null);
+    this.renderer.setStyle(this.el.nativeElement, 'fontWeight', null);
+  }
+}
+
+
+
+
+
+app.component.html
+
+
+<p appStyle1="blue" fontWeight="bold">test works!</p>  //применяем как вторую директиву fontWeight которую обьявляем в style1.directive.ts и делаем директиву которая может принимать параметры
