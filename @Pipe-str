@@ -1,0 +1,23 @@
+str.pipe.ts
+
+import { Pipe, PipeTransform } from '@angular/core';
+
+@Pipe({
+  name: 'str'
+})
+export class StrPipe implements PipeTransform {
+
+  transform(str:string): string {  //Принимает строку 
+    return str.trim() + "!!!";  //Убирает все лишные пробелы и добавляет восклицательные знаки 
+  }
+}
+
+
+
+
+app.compponent.html
+
+
+<p>{{"hello world      " | str}}</p>  //hello world!!!
+
+
